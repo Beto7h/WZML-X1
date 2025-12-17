@@ -97,7 +97,7 @@ VERIFY_TIMEOUT = 0
 LOGIN_PASS = ""
 
 # Bot Settings
-BOT_PM = False
+BOT_PM = True
 SET_COMMANDS = True
 TIMEZONE = "Asia/Kolkata"
 
