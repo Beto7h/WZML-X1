@@ -3,7 +3,7 @@ BOT_TOKEN = ""
 OWNER_ID = 0
 TELEGRAM_API = 0
 TELEGRAM_HASH = ""
-DATABASE_URL = "mongodb+srv://gruperolyricoficial:gruperolyricoficial@cluster0.hgonwzp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+DATABASE_URL = ""
 
 # OPTIONAL CONFIG
 DEFAULT_LANG = "en"
@@ -12,7 +12,7 @@ TG_PROXY = (
 )  # {"scheme": ”socks5”, "hostname": ””, "port": 1234, "username": ”user”, "password": ”pass”}
 USER_SESSION_STRING = ""
 CMD_SUFFIX = ""
-AUTHORIZED_CHATS = "-1002692899742"
+AUTHORIZED_CHATS = ""
 SUDO_USERS = ""
 STATUS_LIMIT = 10
 DEFAULT_UPLOAD = "rc"
