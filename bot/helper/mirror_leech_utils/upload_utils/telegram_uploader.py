@@ -230,7 +230,7 @@ class TelegramUploader:
                 cap_mono,
             )
 
-        if len(file_) > 56:
+        if len(file_) > 255:
             if is_archive(file_):
                 name = get_base_name(file_)
                 ext = file_.split(name, 1)[1]
@@ -245,7 +245,7 @@ class TelegramUploader:
                 ext = ""
             if self._lsuffix:
                 ext = f"{self._lsuffix}{ext}"
-            name = name[: 56 - len(ext)]
+            name = name[: 255 - len(ext)]
             file_ = f"{name}{ext}"
         elif self._lsuffix:
             name, ext = ospath.splitext(file_)
@@ -479,6 +479,8 @@ class TelegramUploader:
                 thumb_path = f"{self._path}/yt-dlp-thumb/{file_name}.jpg"
                 if await aiopath.isfile(thumb_path):
                     thumb = thumb_path
+                elif await aiopath.isfile(thumb_path.replace("/yt-dlp-thumb", "")):
+                    thumb = thumb_path.replace("/yt-dlp-thumb", "")
                 elif is_audio and not is_video:
                     thumb = await get_audio_thumbnail(self._up_path)
 
@@ -500,7 +502,7 @@ class TelegramUploader:
                     quote=True,
                     thumb=thumb,
                     caption=cap_mono,
-                    force_document=True,
+                    disable_content_type_detection=True,
                     disable_notification=True,
                     progress=self._upload_progress,
                 )
