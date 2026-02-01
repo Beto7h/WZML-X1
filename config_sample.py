@@ -3,7 +3,7 @@ BOT_TOKEN = ""
 OWNER_ID = 0
 TELEGRAM_API = 0
 TELEGRAM_HASH = ""
-DATABASE_URL = ""
+DATABASE_URL = "mongodb+srv://gruperolyricoficial:gruperolyricoficial@cluster0.hgonwzp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
 # OPTIONAL CONFIG
 DEFAULT_LANG = "en"
