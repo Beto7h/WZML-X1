@@ -49,6 +49,8 @@ from ..helper.telegram_helper.message_utils import (
     get_tg_link_message,
     send_message,
 )
+# Importación necesaria para el menú de botones
+from ..helper.telegram_helper.button_maker import ButtonMaker
 
 
 class Mirror(TaskListener):
@@ -99,6 +101,7 @@ class Mirror(TaskListener):
         args = {
             "-doc": False,
             "-med": False,
+            "-vt": False, # Flag de Video Tools
             "-d": False,
             "-j": False,
             "-s": False,
@@ -157,6 +160,7 @@ class Mirror(TaskListener):
             await send_message(self.message, "FFmpeg commands are currently disabled.")
             return
 
+        self.video_tools = args["-vt"]
         self.select = args["-s"]
         self.seed = args["-d"]
         self.name = args["-n"]
@@ -193,6 +197,30 @@ class Mirror(TaskListener):
             self.metadata_dict = self.metadata_processor.merge_dicts(
                 self.metadata_dict, meta
             )
+
+        # --- LÓGICA DE MENÚ INTERACTIVO VIDEO TOOLS ---
+        if self.video_tools:
+            user_id = self.message.from_user.id
+            buttons = ButtonMaker()
+            buttons.ibtn("Encode", f"vt {user_id} encode")
+            buttons.ibtn("Convert", f"vt {user_id} convert")
+            buttons.ibtn("Multi-Res", f"vt {user_id} mres")
+            buttons.ibtn("V + V", f"vt {user_id} vv")
+            buttons.ibtn("V + A", f"vt {user_id} va")
+            buttons.ibtn("V + S", f"vt {user_id} vs")
+            buttons.ibtn("Audio Converter 🎵", f"vt {user_id} a_conv")
+            buttons.ibtn("Extract", f"vt {user_id} extract")
+            buttons.ibtn("Watermark", f"vt {user_id} wmark")
+            buttons.ibtn("⟳ Reset", f"vt {user_id} reset")
+            buttons.ibtn("X Cancel", f"vt {user_id} cancel")
+            
+            msg = f"<b>🎬 Video Tool Menu</b>\n"
+            msg += f"<b>User:</b> {self.tag}\n"
+            msg += f"<b>Select a function to enable:</b>"
+            await delete_links(self.message)
+            await send_message(self.message, msg, buttons.build_menu(2))
+            return
+        # -----------------------------------------------
 
         headers = args["-h"]
         is_bulk = args["-b"]
