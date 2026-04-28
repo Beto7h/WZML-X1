@@ -190,6 +190,7 @@ def arg_parser(items, arg_base):
                     "-ut",
                     "-bt",
                     "-yt",
+                    "-vt",
                 ]
             ):
                 arg_base[part] = True
